@@ -30,6 +30,9 @@ echo 'source -- /usr/local/share/blesh/ble.sh' >> ~/.bashrc
 # or for root user
 # echo 'source -- /usr/local/share/blesh/ble.sh' | sudo tee -a /root/.bashrc
 ```
+
+⭐ If this repository helped you, please consider giving it a Star.
+
 ## Video
 
 Watch the [full tutorial](https://youtu.be/0G1MM3gM4HQ) on my [YouTube channel](https://www.youtube.com/@BahRamTech).

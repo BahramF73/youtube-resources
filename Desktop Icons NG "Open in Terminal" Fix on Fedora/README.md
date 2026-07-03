@@ -36,6 +36,8 @@ This ensures **Open in Terminal** starts in the selected folder instead of your 
 - Desktop Icons NG (DING)
 - Ptyxis
 
+⭐ If this repository helped you, please consider giving it a Star.
+
 ## Video
 
 Watch the [full tutorial](https://youtube.com/shorts/nuJwljTmRdM) on my [YouTube channel](https://www.youtube.com/@BahRamTech).
