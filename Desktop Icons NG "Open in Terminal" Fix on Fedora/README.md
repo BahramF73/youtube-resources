@@ -38,8 +38,8 @@ This ensures **Open in Terminal** starts in the selected folder instead of your 
 
 ## Video
 
-Watch the full tutorial on my [YouTube](https://www.youtube.com/@BahRamTech) channel.
+Watch the [full tutorial](https://youtube.com/shorts/nuJwljTmRdM) on my [YouTube channel](https://www.youtube.com/@BahRamTech).
 
 ## License
 
-[MIT](../LICENSE)
+This project is licensed under the [MIT License](../LICENSE).
