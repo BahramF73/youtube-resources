@@ -1,0 +1,35 @@
+services:
+  windows:
+    image: docker.io/dockurr/windows:latest
+    container_name: WinApps
+    environment:
+      VERSION: "11"
+      RAM_SIZE: "8G"
+      CPU_CORES: "4"
+      DISK_SIZE: "64G"
+      # Change USERNAME and PASSWORD to your own
+      USERNAME: "USERNAME"
+      PASSWORD: "PASSWORD"
+
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+
+    ports:
+      - "127.0.0.1:8006:8006"
+      - "127.0.0.1:3389:3389/tcp"
+      - "127.0.0.1:3389:3389/udp"
+    volumes:
+      - ${HOME}/winapps/windows:/storage:Z
+      # If you have a Windows ISO file, uncomment the line below
+      # and replace the path with your ISO file.
+      # If you don't have one, leave it commented.
+      # - /DIRECTORY/WINDOWS.ISO:/custom.iso:Z
+      - ./oem:/oem 
+
+    restart: always
+    stop_grace_period: 2m
