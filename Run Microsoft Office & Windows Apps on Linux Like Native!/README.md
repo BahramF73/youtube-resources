@@ -80,7 +80,15 @@ Leave the remaining options as their defaults.
 
 ## Share a Linux Folder (Optional)
 
-Add this line to `~/.config/winapps/winapps.conf`:
+Add the following line to `~/.config/winapps/winapps.conf`.
+
+Replace **SHARE_NAME** with the name you want the shared folder to have inside Windows, and replace **/PATH/TO/LINUX/FOLDER** with the Linux folder you want to share.
+
+```bash
+RDP_FLAGS="/drive:SHARE_NAME,/PATH/TO/LINUX/FOLDER"
+```
+
+For example:
 
 ```bash
 RDP_FLAGS="/drive:Office,/mnt/Data/Office"
@@ -93,6 +101,12 @@ pkill -f xfreerdp
 ```
 
 Inside Windows File Explorer, open:
+
+```
+\\tsclient\SHARE_NAME
+```
+
+For example:
 
 ```
 \\tsclient\Office
@@ -148,7 +162,7 @@ WinApps will now start automatically after you log in.
 
 ## Video
 
-Watch the [full tutorial](YOUR_YOUTUBE_VIDEO_LINK) on my [YouTube channel](https://www.youtube.com/@BahRamTech).
+Watch the [full tutorial](https://youtu.be/SNqFLav2E-w) on my [YouTube channel](https://www.youtube.com/@BahRamTech).
 
 ## License
 
