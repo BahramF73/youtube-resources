@@ -1,4 +1,4 @@
-# Install & Update JetBrains IDEs Without sudo (No Toolbox Required)
+# Install & Update JetBrains IDEs Without sudo — No Toolbox Required
 
 This repository contains the commands used in my YouTube tutorial for installing **IntelliJ IDEA** and other **JetBrains IDEs** under **`/opt`** without using **JetBrains Toolbox**.
 
