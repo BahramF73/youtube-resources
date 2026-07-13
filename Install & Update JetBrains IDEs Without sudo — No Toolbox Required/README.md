@@ -83,8 +83,6 @@ The update should now complete successfully without using `sudo`.
 
 ## Method 2 — Shared Linux Group
 
-> Replace `USER1` and `USER2` with your actual Linux usernames.
-
 ### Check regular users
 
 ```bash
@@ -98,6 +96,8 @@ sudo groupadd jetbrains
 ```
 
 ### Add users
+
+> Replace `USER1` and `USER2` with your actual Linux usernames.
 
 ```bash
 sudo usermod -aG jetbrains USER1
@@ -132,6 +132,8 @@ ls -ld /opt/jetbrains
 
 ### Verify group membership
 
+> Replace `USER1` with your actual Linux username.
+
 ```bash
 id USER1
 ```
@@ -142,15 +144,18 @@ Members of the `jetbrains` group should now be able to update IntelliJ IDEA with
 
 ## Method 3 — ACL
 
-> Replace `USER1` and `USER2` with your actual Linux usernames.
 
 ### Grant access to specific users
+
+> Replace `USER1` and `USER2` with your actual Linux usernames.
 
 ```bash
 sudo setfacl -R -m u:USER1:rwX,u:USER2:rwX /opt/jetbrains
 ```
 
 ### Configure default ACLs
+
+> Replace `USER1` and `USER2` with your actual Linux usernames.
 
 ```bash
 sudo find /opt/jetbrains -type d -exec setfacl -m d:u:USER1:rwx,d:u:USER2:rwx {} +
@@ -170,11 +175,15 @@ Users with the configured ACL permissions should now be able to update IntelliJ 
 
 Remove existing ACL entries:
 
+> Replace `USER2` with the username you want to remove.
+
 ```bash
 sudo setfacl -R -x u:USER2 /opt/jetbrains
 ```
 
 Remove default ACL entries:
+
+> Replace `USER2` with the username you want to remove.
 
 ```bash
 sudo find /opt/jetbrains -type d -exec setfacl -x d:u:USER2 {} +
