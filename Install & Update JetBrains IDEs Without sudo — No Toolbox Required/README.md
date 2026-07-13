@@ -1,4 +1,18 @@
-# Install IntelliJ IDEA
+# Install & Update JetBrains IDEs Without sudo (No Toolbox Required)
+
+This repository contains the commands used in my YouTube tutorial for installing **IntelliJ IDEA** and other **JetBrains IDEs** under **`/opt`** without using **JetBrains Toolbox**.
+
+Instead of installing a separate copy for every user, you'll learn how to keep a single system-wide installation and update it without using `sudo`.
+
+The guide also covers three different permission management methods:
+
+- **Single User**
+- **Shared Linux Group**
+- **Access Control Lists (ACL)**
+
+These methods work for IntelliJ IDEA as well as other JetBrains IDEs such as **PyCharm**, **WebStorm**, **CLion**, **GoLand**, **DataGrip**, **Rider**, **PhpStorm**, **RubyMine**, and more.
+
+## Install IntelliJ IDEA
 
 ### Create the installation directory
 
@@ -6,15 +20,11 @@
 sudo mkdir -p /opt/jetbrains
 ```
 
----
-
 ### Extract IntelliJ IDEA
 
 ```bash
 sudo tar -xvf idea-*.tar.gz -C /opt/jetbrains
 ```
-
----
 
 ### Rename the directory
 
@@ -23,8 +33,6 @@ cd /opt/jetbrains
 sudo mv idea-IU-* intellij-idea
 ```
 
----
-
 ### Verify ownership
 
 ```bash
@@ -32,41 +40,27 @@ ls -ld /opt/jetbrains
 ls -ld /opt/jetbrains/intellij-idea
 ```
 
-Expected:
-
-```text
-drwxr-xr-x  root  root  /opt/jetbrains
-drwxr-xr-x  root  root  /opt/jetbrains/intellij-idea
-```
-
----
-
 ### Launch IntelliJ IDEA
 
 ```bash
 /opt/jetbrains/intellij-idea/bin/idea
 ```
----
 
 ### Create a Desktop Entry
 
-After IntelliJ IDEA starts, open **Tools → Create Desktop Entry**.
+Open:
 
-If you want the launcher to be available for every user on the system, enable **Create entry for all users**.
+**Tools → Create Desktop Entry**
 
-Otherwise, leave it unchecked to create it only for the current user.
+Enable **Create entry for all users** if you want the launcher available for every user.
 
-Click **OK**, enter your root password if requested, and you're done.
+### Try Updating IntelliJ IDEA
 
----
-
-### Try updating IntelliJ IDEA
-
-At this point, the update should fail because the installation directory is owned by `root` and isn't writable by the current user.
+At this point, the update should fail because the installation directory is owned by `root`.
 
 ---
 
-# Method 1 — Single User
+## Method 1 — Single User
 
 ### Make yourself the owner of the installation directory
 
@@ -74,8 +68,6 @@ At this point, the update should fail because the installation directory is owne
 sudo chown -R $USER:$USER /opt/jetbrains
 ```
 
----
-
 ### Verify ownership
 
 ```bash
@@ -83,24 +75,15 @@ ls -ld /opt/jetbrains
 ls -ld /opt/jetbrains/intellij-idea
 ```
 
-Expected:
-
-```text
-drwxr-xr-x  bahram  bahram  /opt/jetbrains
-drwxr-xr-x  bahram  bahram  /opt/jetbrains/intellij-idea
-```
-
----
-
 ### Try updating IntelliJ IDEA again
 
-This time, the update should complete successfully without using `sudo`.
+The update should now complete successfully without using `sudo`.
 
 ---
 
-# Method 2 — Shared Linux Group
+## Method 2 — Shared Linux Group
 
-> This method can be used independently. The installation may remain owned by `root`; members of the `jetbrains` group will receive matching permissions.
+> Replace `USER1` and `USER2` with your actual Linux usernames.
 
 ### Check regular users
 
@@ -108,22 +91,22 @@ This time, the update should complete successfully without using `sudo`.
 getent passwd | awk -F: '$3 >= 1000 && $3 <= 60000'
 ```
 
-### Create the shared group
+### Create a shared group
 
 ```bash
 sudo groupadd jetbrains
 ```
 
-### Add users to the group
+### Add users
 
 ```bash
-sudo usermod -aG jetbrains bahram
-sudo usermod -aG jetbrains john
+sudo usermod -aG jetbrains USER1
+sudo usermod -aG jetbrains USER2
 ```
 
-> Users must log out and log back in, or reboot, before the new group membership takes effect.
+> Log out and log back in (or reboot) before continuing.
 
-### Assign the installation to the shared group
+### Change the group owner
 
 ```bash
 sudo chgrp -R jetbrains /opt/jetbrains
@@ -135,15 +118,11 @@ sudo chgrp -R jetbrains /opt/jetbrains
 sudo chmod -R g=u /opt/jetbrains
 ```
 
-This gives the group the same permissions as the owner while preserving the original executable bits.
-
-### Enable setgid on all directories
+### Enable setgid
 
 ```bash
 sudo find /opt/jetbrains -type d -exec chmod g+s {} +
 ```
-
-This makes newly created files and directories inherit the `jetbrains` group.
 
 ### Verify permissions
 
@@ -151,52 +130,30 @@ This makes newly created files and directories inherit the `jetbrains` group.
 ls -ld /opt/jetbrains
 ```
 
-If the installation is owned by `root`, the expected output is similar to:
-
-```text
-drwxrwsr-x  root  jetbrains  /opt/jetbrains
-```
-
-If Method 1 was previously applied, the owner may instead be your user:
-
-```text
-drwxrwsr-x  bahram  jetbrains  /opt/jetbrains
-```
-
 ### Verify group membership
 
 ```bash
-id bahram
+id USER1
 ```
-
-The output should include:
-
-```text
-jetbrains
-```
----
-
-### Try updating IntelliJ IDEA again
 
 Members of the `jetbrains` group should now be able to update IntelliJ IDEA without using `sudo`.
+
 ---
 
-# Method 3 — ACL
+## Method 3 — ACL
 
-> This method can also be used independently and does not require changing the owner or group of the installation.
+> Replace `USER1` and `USER2` with your actual Linux usernames.
 
-### Grant access to specific users on existing files and directories
+### Grant access to specific users
 
 ```bash
-sudo setfacl -R -m u:bahram:rwX,u:john:rwX /opt/jetbrains
+sudo setfacl -R -m u:USER1:rwX,u:USER2:rwX /opt/jetbrains
 ```
 
-The uppercase `X` adds execute permission only to directories and files that were already executable.
-
-### Set default ACLs for newly created files and directories
+### Configure default ACLs
 
 ```bash
-sudo find /opt/jetbrains -type d -exec setfacl -m d:u:bahram:rwx,d:u:john:rwx {} +
+sudo find /opt/jetbrains -type d -exec setfacl -m d:u:USER1:rwx,d:u:USER2:rwx {} +
 ```
 
 ### Verify ACLs
@@ -205,40 +162,51 @@ sudo find /opt/jetbrains -type d -exec setfacl -m d:u:bahram:rwx,d:u:john:rwx {}
 getfacl /opt/jetbrains
 ```
 
-You should see ACL entries for the users you added, along with their corresponding default ACL entries.
-
----
-
-### Try updating IntelliJ IDEA again
-
 Users with the configured ACL permissions should now be able to update IntelliJ IDEA without using `sudo`.
 
 ---
 
-## Optional: Remove ACL for a Specific User
+## Remove ACL for a Specific User (Optional)
 
-If you want to remove ACL permissions for a specific user, you need to remove both the existing ACL entries and the default ACL entries.
-
-Remove the existing ACL entries from all files and directories:
+Remove existing ACL entries:
 
 ```bash
-sudo setfacl -R -x u:john /opt/jetbrains
+sudo setfacl -R -x u:USER2 /opt/jetbrains
 ```
 
-Then remove the default ACL entries from all directories:
+Remove default ACL entries:
 
 ```bash
-sudo find /opt/jetbrains -type d -exec setfacl -x d:u:john {} +
+sudo find /opt/jetbrains -type d -exec setfacl -x d:u:USER2 {} +
 ```
 
 ---
 
-## Optional: Remove All ACL Entries
-
-If you want to completely remove ACLs and return to standard Linux permissions, run:
+## Remove All ACL Entries (Optional)
 
 ```bash
 sudo setfacl -Rb /opt/jetbrains
 ```
 
-This recursively removes all access ACLs and default ACLs, leaving only the standard Linux owner, group, and permission bits managed by `chown` and `chmod`.
+This removes all access ACLs and default ACLs, restoring standard Linux permissions.
+
+---
+
+## Notes
+
+- A single installation can be shared by multiple users.
+- No JetBrains Toolbox is required.
+- Method 1 is recommended for personal computers.
+- Method 2 is recommended for shared systems.
+- Method 3 is useful when only specific users should have update permissions.
+- These methods work for most JetBrains IDEs.
+
+⭐ If this repository helped you, please consider giving it a Star.
+
+## Video
+
+Watch the [full tutorial](https://youtu.be/jtPcKxrHeww) on my [YouTube channel](https://www.youtube.com/@BahRamTech).
+
+## License
+
+This project is licensed under the [MIT License](../LICENSE).
