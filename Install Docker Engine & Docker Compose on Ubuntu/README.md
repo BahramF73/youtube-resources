@@ -85,7 +85,7 @@ sudo apt update
 ## Install Docker Engine
 
 ```bash
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
 ---
@@ -156,6 +156,29 @@ All containers:
 sudo docker ps -a
 ```
 
+## Delete an Image
+
+Remove the image:
+
+```bash
+sudo docker image rm hello-world
+```
+
+An image cannot normally be removed while it is still being used by an existing container, even if that container has already stopped.
+
+You can either force the image removal:
+
+```bash
+sudo docker image rm -f hello-world
+```
+
+Or remove the container first, then remove the image:
+
+```bash
+sudo docker rm CONTAINER_ID
+sudo docker image rm hello-world
+```
+
 ---
 
 ## Run Docker Without sudo
@@ -187,7 +210,7 @@ groups
 Test Docker again:
 
 ```bash
-docker run --rm hello-world
+docker run hello-world
 ```
 
 ---
