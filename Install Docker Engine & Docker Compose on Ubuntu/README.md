@@ -11,6 +11,22 @@ The guide also covers how to:
 
 ---
 
+## Check Ubuntu Version
+
+```bash
+cat /etc/os-release
+```
+
+---
+
+## Check System Architecture
+
+```bash
+dpkg --print-architecture
+```
+
+---
+
 ## Remove Conflicting Packages
 
 ```bash
@@ -74,6 +90,14 @@ EOF
 
 ---
 
+## Verify the Repository Configuration
+
+```bash
+cat /etc/apt/sources.list.d/docker.sources
+```
+
+---
+
 ## Update Package Index Again
 
 ```bash
@@ -90,11 +114,25 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 
 ---
 
-## Verify Installation
+## Verify Docker
 
 ```bash
 docker --version
+```
+
+---
+
+## Verify Docker Compose
+
+```bash
 docker compose version
+```
+
+---
+
+## Verify Docker Buildx
+
+```bash
 docker buildx version
 ```
 
@@ -122,6 +160,18 @@ Or do both at once:
 
 ```bash
 sudo systemctl enable --now docker
+```
+
+Check whether Docker is running:
+
+```bash
+systemctl is-active docker
+```
+
+Check whether Docker starts automatically at boot:
+
+```bash
+systemctl is-enabled docker
 ```
 
 ---
@@ -155,6 +205,8 @@ All containers:
 ```bash
 sudo docker ps -a
 ```
+
+---
 
 ## Delete an Image
 
@@ -210,7 +262,15 @@ groups
 Test Docker again:
 
 ```bash
-docker run hello-world
+docker run --rm hello-world
+```
+
+---
+
+## Display Docker Information
+
+```bash
+docker info
 ```
 
 ---
@@ -223,8 +283,14 @@ docker run -d --name nginx-test -p 8080:80 nginx
 
 Open:
 
-```
+```text
 http://localhost:8080
+```
+
+View running containers:
+
+```bash
+docker ps
 ```
 
 View logs:
