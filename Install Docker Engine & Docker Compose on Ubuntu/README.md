@@ -331,7 +331,7 @@ docker rm -f nginx-test
 
 ## Video
 
-Watch the [full tutorial](https://youtu.be/) on my [YouTube channel](https://www.youtube.com/@BahRamTech).
+Watch the [full tutorial](https://youtu.be/jkVZqvSosts) on my [YouTube channel](https://www.youtube.com/@BahRamTech).
 
 ## License
 

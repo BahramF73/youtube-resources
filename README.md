@@ -10,6 +10,7 @@ This repository contains the commands, scripts, configuration files, and additio
 - [Stop Typing Your sudo Password Every 5 Minutes!](./Stop%20Typing%20Your%20sudo%20Password%20Every%205%20Minutes%21/)
 - [Run Microsoft Office & Windows Apps on Linux Like Native!](./Run%20Microsoft%20Office%20%26%20Windows%20Apps%20on%20Linux%20Like%20Native%21/)
 - [Install & Update JetBrains IDEs Without sudo — No Toolbox Required](./Install%20%26%20Update%20JetBrains%20IDEs%20Without%20sudo%20%E2%80%94%20No%20Toolbox%20Required/)
+- [Install Docker Engine & Docker Compose on Ubuntu](./Install%20Docker%20Engine%20%26%20Docker%20Compose%20on%20Ubuntu/)
 
 ## Repository Structure
 
