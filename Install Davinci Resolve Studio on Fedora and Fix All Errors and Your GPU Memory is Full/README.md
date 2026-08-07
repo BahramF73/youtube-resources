@@ -1,6 +1,6 @@
-# Install Davinci Resolve Studio (21.0.1) on Fedora (44) and Fix All Errors and Your GPU Memory is Full
+# Install Davinci Resolve Studio (21.0.3) on Fedora (44) and Fix All Errors and Your GPU Memory is Full
 
-This repository contains the commands used in my YouTube tutorial for installing **DaVinci Resolve Studio 21.0.1** on **Fedora 44**. It also includes fixes for the most common installation issues, Fedora library conflicts, and the **"Your GPU Memory is Full"** error on NVIDIA GPUs.
+This repository contains the commands used in my YouTube tutorial for installing **DaVinci Resolve Studio 21.0.3** on **Fedora 44**. It also includes fixes for the most common installation issues, Fedora library conflicts, and the **"Your GPU Memory is Full"** error on NVIDIA GPUs.
 
 ## Install Dependencies
 
@@ -11,7 +11,7 @@ sudo dnf install libxcrypt-compat libcurl libcurl-devel mesa-libGLU fuse-libs
 ## Install DaVinci Resolve Studio
 
 ```bash
-chmod +x DaVinci_Resolve_Studio_21.0.1_Linux.run && SKIP_PACKAGE_CHECK=1 ./DaVinci_Resolve_Studio_21.0.1_Linux.run
+chmod +x DaVinci_Resolve_Studio_21.0.3_Linux.run && SKIP_PACKAGE_CHECK=1 ./DaVinci_Resolve_Studio_21.0.3_Linux.run
 ```
 
 ## Fix Fedora Library Conflicts
